@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+
+<cXML xml:lang="en-US"
+      payloadID="0c30050@workchairs.com"
+      timestamp="2000-01-08T23:00:06-08:00">
+    <Header>
+        <From>
+            <Credential domain="DUNS">
+                <Identity>942888711</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="DUNS">
+                <Identity>942888711</Identity>
+                <SharedSecret>abracadabra</SharedSecret>
+            </Credential>
+            <UserAgent>Workchairs cXML V1.1</UserAgent>
+        </Sender>
+    </Header>
+    <Request>
+        <StatusUpdateRequest>
+            <DocumentReference payloadID="0c300508b7863dcclb_14999" />
+            <Status code="200" text="OK">Forwarded to manufacturer
+            </Status>
+        </StatusUpdateRequest>
+    </Request>
+</cXML>

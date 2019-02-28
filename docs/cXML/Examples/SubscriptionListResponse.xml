@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+<!--
+        Response to SubscriptionListRequest. Includes meta-data for all
+        the applicable subscriptions.
+-->
+<cXML payloadID="9949494-198@ariba.com" xml:lang="en-US"
+      timestamp="1999-03-12T18:39:09-08:00">
+    <Response>
+        <Status code="200" text="OK"/>
+        <SubscriptionListResponse>
+            <Subscription>
+                <InternalID>1234</InternalID>
+                <Name xml:lang="en-US">Q2 Prices</Name>
+                <Changetime>1999-03-12T18:39:09-08:00</Changetime>
+                <SupplierID domain="DUNS">942888711</SupplierID>
+                <Format version="2.1">CIF</Format>
+                <Description xml:lang="en-US">The best prices for chairs</Description>
+            </Subscription>
+            <Subscription>
+                <InternalID>sub1235</InternalID>
+                <Name xml:lang="en-US">Q2 Software Prices</Name>
+                <Changetime>1999-03-12T18:15:00-08:00</Changetime>
+                <SupplierID domain="DUNS">123456789</SupplierID>
+                <Format version="2.1">CIF</Format>
+                <Description xml:lang="en-US">The best prices for software</Description>
+            </Subscription>
+        </SubscriptionListResponse>
+    </Response>
+</cXML>

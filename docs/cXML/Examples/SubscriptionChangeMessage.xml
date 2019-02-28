@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+<!--
+        Message indicating change in a catalog subscription.
+        Generated when new subscription is added, catalog
+        content is updated, subscription deleted, etc.
+-->
+<cXML payloadID="456778-199@ariba.com" xml:lang="en-US"
+      timestamp="1999-03-12T18:39:09-08:00">
+    <Header>
+        <From>
+            <Credential domain="DUNS">
+                <Identity>942888711</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@ariba.com</Identity>
+            </Credential>
+            <UserAgent>Ariba.com Network V1.0</UserAgent>
+        </Sender>
+    </Header>
+    <Message>
+        <SubscriptionChangeMessage type="new">
+            <Subscription>
+                <InternalID>1234</InternalID>
+                <Name xml:lang="en-US">Q2 Prices</Name>
+                <Changetime>1999-03-12T18:39:09-08:00</Changetime>
+                <SupplierID domain="DUNS">942888711</SupplierID>
+                <Format version="2.1">CIF</Format>
+            </Subscription>
+        </SubscriptionChangeMessage>
+    </Message>
+</cXML>

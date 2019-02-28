@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Contract SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+
+<Contract effectiveDate="1999-01-01T14:32:20-08:00"
+          expirationDate="2000-06-01T12:00:00-08:00">
+  <SupplierID domain="DUNS">123456</SupplierID>
+  <Comments xml:lang="en-US">
+    Sample cXML contract
+  </Comments>
+  <ItemSegment segmentKey="Detroit">
+    <ContractItem>
+      <ItemID>
+	    <SupplierPartID>12345</SupplierPartID>
+      </ItemID>
+      <UnitPrice><Money currency="USD">1.50</Money></UnitPrice>
+      <Extrinsic name="URL"> http://www.workchairs.com/CoolProducts </Extrinsic>
+    </ContractItem>
+    <ContractItem>
+      <ItemID>
+        <SupplierPartID>12347</SupplierPartID>
+      </ItemID>
+      <UnitPrice><Money currency="USD">111.50</Money></UnitPrice>
+    </ContractItem>
+  </ItemSegment>
+</Contract>

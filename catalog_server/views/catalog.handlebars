@@ -1,0 +1,27 @@
+<header>
+    <div class="container">
+        <div id="branding">
+            <h1>{{title}}</h1>
+        </div>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#"><i class="fas fa-shopping-cart"></i> カートの中身を見る</a></li>
+        </ul>
+    </nav>
+</header>
+<section id="catalog">
+    <div class="catalog">
+        {{#each items}}
+            <div class="catalog-item">
+                <h3>{{this.name}}</h3>
+                <div class="command">
+                    <p><a href="#"><i class="fas fa-cart-plus"></i> カートに追加</a></p>
+                </div>
+                <img src="{{this.url}}">
+                <p>{{this.description}}</p>
+                <p>価格 {{this.price}}円</p>
+           </div>
+        {{/each}}
+    </div>
+</section>

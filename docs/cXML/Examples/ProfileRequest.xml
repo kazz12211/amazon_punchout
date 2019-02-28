@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+
+<cXML payloadID="9949494@ariba.acme.com" xml:lang="en-US"
+      timestamp="2000-02-04T18:39:09-08:00">
+    <Header>
+        <From>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@ariba.com</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+                <SharedSecret>coyote</SharedSecret>
+            </Credential>
+            <UserAgent>ORMS V6.1 </UserAgent>
+        </Sender>
+    </Header>
+    <Request deploymentMode="test">
+        <ProfileRequest />
+    </Request>
+</cXML>

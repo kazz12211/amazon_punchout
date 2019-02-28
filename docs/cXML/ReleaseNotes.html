@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+<title>cXML Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta content="Microsoft FrontPage 3.0" name="GENERATOR">
+</head>
+
+<body bgColor="#ffffff">
+
+<p align="center"><a name="top"></a><font face="Arial, Helvetica, sans-serif" size="+2"><b>cXML
+Release Notes<br>
+1.1.010</b></font></p>
+
+<p>This document describes the changes between minor versions of cXML. For the changes
+between major versions, see the <i>cXML User's Guide</i>. </p>
+
+<h4><font face="Arial, Helvetica, sans-serif">Addition of the CopyRequest Element</font></h4>
+
+<p>The <code>CopyRequest</code> element enables copying and forwarding of&nbsp;messages
+to&nbsp;new recipients, similar to forwarding an e-mail messages. To accomplish this, a
+new message is created and sent that includes the original message. At the moment this
+request is rarely used within the Ariba infrastructure. Currently, it is primarily used by
+Ariba CSN for service partners and might in the future be relevant for Marketplace
+participants.</p>
+
+<p>&nbsp;</p>
+
+<h4><font face="Arial, Helvetica, sans-serif">Addition of Comments to Country-Related
+Elements and Attributes</font></h4>
+
+<p>Better explanations of the country-related elements and attributes have been added to
+the <code>CountryCode</code> element, and the <code>isoCountryCode</code> attribute on the
+<code>Address</code>, <code>Country</code>, and <code>CountryCode</code> elements.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><font face="Arial, Helvetica, sans-serif" size="+2"><b>1.1.009</b></font></p>
+
+<h4><font face="Arial, Helvetica, sans-serif">Change in Data Type of role attribute of the
+Contact Element</font></h4>
+
+<p><font color="#000000">The data type of the </font>of the <code>Contact</code> element's
+optional<code>role</code> attribute has been changed from an enumeration containing <code>endUser</code>,
+<code>administrator</code>, <code>purchasingAgent</code>, <code>technicalSupport</code>, <code>customerService</code>,
+and <code>sales</code>, to a string with the same allowed values. This change enables the
+usage of the <code>Contact</code> element to be more easily expanded.</p>
+
+<p>&nbsp;</p>
+
+<h4><font face="Arial, Helvetica, sans-serif">Addition of a lastChangedTimeStamp Attribute
+to the Identity Element</font></h4>
+
+<p><font color="#000000">An optional <code>lastChangedTimestamp</code> attribute has been
+added to the <code>Identity</code> element. This attribute enables automatic
+synchronization of data between systems. </font></p>
+
+<p>&nbsp;</p>
+
+<h4><font face="Arial, Helvetica, sans-serif" color="#000000">Addition of a domain
+Attribute</font><font face="Arial, Helvetica, sans-serif"> to the InternalID Element</font></h4>
+
+<p>An optional <code>domain</code> attribute has been added to the <code>InternalID</code>
+element and provides scoping for this subscription catalogue identifier. The default
+domain value is &quot;NetworkSubscription&quot;.</p>
+
+<p>&nbsp;</p>
+
+<h4><font face="Arial, Helvetica, sans-serif">Addition of a DocumentReference Element to
+the OrderRequestHeader Element</font></h4>
+
+<p>An optional <code>DocumentReference</code> element has been added to the<code>
+OrderRequestHeader</code> element. <code>DocumentReference</code> provides explicit links
+between an update or delete action and the most recent <code>OrderRequest</code> for the
+same order. <code>DocumentReference</code> contains the <code>payloadID</code> of the most
+recent <code>OrderRequest</code> document in the list, not always the original <code>OrderRequest</code>
+(with type set to &quot;new&quot;). </p>
+
+<p>&nbsp;</p>
+
+<h4><font face="Arial, Helvetica, sans-serif">Definitions Rearranged</font></h4>
+
+<p><code>DocumentReference</code> and <code>StatusUpdateRequest</code> have been moved to
+new locations within the <code>cxml.dtd</code> file. The consituent file <code>status.mod</code>
+no longer exists.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><b><font face="Arial, Helvetica, sans-serif" size="+2">1.1.008</font></b></p>
+
+<p align="left"><b><font face="Arial, Helvetica, sans-serif">New Entity for cXML Version</font></b></p>
+
+<p>The cXML version string (for example, 1.1.008) is now stored in a single-parameter
+entity named <code>cxml.version</code>. You can use this new entity to keep the version
+number consistent throughout cXML documents. For example,</p>
+
+<blockquote>
+  <p><code>&lt;!DOCTYPE cXML SYSTEM &quot;http://xml.cXML.org/schemas/cXML/<b>1.1.008</b>/cXML.dtd&quot;&gt;<br>
+  &lt;cXML version=&quot;<b>&amp;cxml.version;</b>&quot; payloadID=&quot;992662&quot;
+  xml:lang=&quot;en-US&quot; timestamp=&quot;2000-03-12T18:39:09-08:00&quot;&gt;</code> </p>
+</blockquote>
+
+<p>Using this technique is not recommended when interacting with non-validating XML
+parsers. Non-validating parsers will have no version information as they load the cXML
+document, and will behave as if the <code>version</code> attribute were absent.</p>
+
+<p>&nbsp;</p>
+
+<p><font face="Arial, Helvetica, sans-serif"><b>SGML Entity-Redefinition Conditionalized </b></font></p>
+
+<p>cXML 1.1 followed a general XML recommendation to redefine five entities (lt, gt, amp,
+apos, and quot) for interoperability with SGML parsers. However, it was found that these
+redefinitions cause some XML parsers to complain.</p>
+
+<p>These redefinitions are now conditionalized for better compatibility with XML parsers.
+In the future, commerce network platforms might have an option for setting the XML flag <code>SGML-help</code>
+to trigger these redefinitions for interoperability with SGML parsers.</p>
+
+<p>&nbsp;</p>
+
+<p><font face="Arial, Helvetica, sans-serif"><b>Transaction Definitions Rearranged</b></font></p>
+
+<p>The definitions of the <code>%cxml.messages</code>, <code>%cxml.requests</code>, and <code>%cxml.responses</code>
+entities have been moved to a separate module (<code>Entities.mod</code>) for improved
+maintainability. By moving these definitions to <code>Entities.mod</code>, they appear
+together within the .dtd, separate from their uses in the <code>Message</code>, <code>Request</code>,
+and <code>Response</code> elements.</p>
+
+<p>&nbsp;</p>
+
+<p><b><font face="Arial, Helvetica, sans-serif">New License Agreement</font></b></p>
+
+<p>The copyright notice in the .dtd and .mod files has been replaced by a reference to the
+license agreement on www.cxml.org:</p>
+
+<blockquote>
+  <p><code>For cXML license agreement information, please see<br>
+  http://www.cxml.org/home/license.asp</code></p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><b><font face="Arial, Helvetica, sans-serif" size="+2">1.1.007</font></b></p>
+
+<p><b><font face="Arial, Helvetica, sans-serif">Deterministic Declaration of cXML Element</font></b></p>
+
+<p>The top-level <font face="Arial, Helvetica, sans-serif" size="-1">cXML</font> element
+has a new declaration:</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Old element type
+declaration:<br>
+<code>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;!ELEMENT cXML ((Header, Message) |
+(Header, Request) | (Response))&gt;</code></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; New declaration:<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!ELEMENT cXML ((Header, (Message |
+Request)) | Response)&gt;</code></p>
+
+<p>The new declaration uses a deterministic grammar that is compatible with more XML
+parsers.</p>
+
+<p>&nbsp;</p>
+
+<h4><b><font face="Arial, Helvetica, sans-serif">OrderReference Changed to
+DocumentReference </font></b></h4>
+
+<p>The proposed element name <code>OrderReference</code> was changed to <code>DocumentReference</code>
+so that it is more generic.</p>
+
+<p>&nbsp;</p>
+
+<p><b><font face="Arial, Helvetica, sans-serif">Less Restrictive Data Type for Attributes</font></b></p>
+
+<p>The data types of the following attributes have been changed from NMTOKEN to CDATA so
+that they can contain less restrictive data:</p>
+
+<blockquote>
+  <p><code>isoCountryCode<br>
+  currency<br>
+  alternateCurrency<br>
+  xml:lang</code></p>
+  <p>&nbsp;</p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<p align="center"><font size="-1">December, 2000</font></p>
+
+<p align="right"><font size="-1"><a href="#top">Back to Top</a></font></p>
+</body>
+</html>

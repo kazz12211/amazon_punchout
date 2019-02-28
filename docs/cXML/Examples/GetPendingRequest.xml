@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+<!--
+        A request used for polling for waiting messages. A waiting message,
+	if any, will be included in the returned stream. The
+	lastReceivedTimestamp attribute, if present, provides the timestamp
+	of the last received message. When the Receiver sees this, it can
+	remove messages with earlier timestamps from the pending queue.
+-->
+<cXML payloadID="1278@ariba.acme.com"
+      timestamp="1999-03-12T18:39:09-08:00" xml:lang="en">
+    <Header>
+        <From>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="DUNS">
+                <Identity>942888711</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+                <SharedSecret>coyote</SharedSecret>
+            </Credential>
+            <UserAgent>ORMS V6.1</UserAgent>
+        </Sender>
+    </Header>
+    <Request>
+        <GetPendingRequest
+	   lastReceivedTimestamp="1999-03-12T18:39:09-08:00" maxMessages="5">
+            <MessageType>SubscriptionChangedMessage</MessageType>
+        </GetPendingRequest>
+    </Request>
+</cXML>

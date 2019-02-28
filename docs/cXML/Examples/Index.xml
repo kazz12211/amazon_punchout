@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Index SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+
+<Index>
+  <SupplierID domain="InternalSupplierID">29</SupplierID>
+  <Comments xml:lang="en-US">
+    Sample cXML/Index
+  </Comments>
+  <SearchGroup>
+    <Name xml:lang="en">DressShoe</Name>
+    <SearchAttribute name="Size" type="number"/>
+    <SearchAttribute name="Color" type="string"/>
+    <SearchAttribute name="Gender" type="string"/>
+  </SearchGroup>
+  <IndexItem>
+    <IndexItemAdd>
+      <ItemID>
+        <SupplierPartID>pn12345</SupplierPartID>
+      </ItemID>
+      <ItemDetail>
+        <UnitPrice>
+          <Money currency="USD">60</Money>
+        </UnitPrice>
+        <Description xml:lang="en">Men's black shoes</Description>
+        <UnitOfMeasure>EA</UnitOfMeasure>
+        <Classification domain="SPSC">5136030000</Classification>
+        <ManufacturerPartID>MBS3.12</ManufacturerPartID>
+        <ManufacturerName>Florsheim</ManufacturerName>
+        <URL>http://www.florsheim.com</URL>
+        <Extrinsic name="ManufacturerURL">http://www.shoemaker.com</Extrinsic>
+      </ItemDetail>
+      <IndexItemDetail>
+        <LeadTime>10</LeadTime>
+        <ExpirationDate>2000-06-01</ExpirationDate>
+        <EffectiveDate>1999-01-01</EffectiveDate>
+        <SearchGroupData>
+          <Name xml:lang="en">DressShoe</Name>
+          <SearchDataElement name="Size" value="12"/>
+          <SearchDataElement name="Color" value="Black"/>
+          <SearchDataElement name="Gender" value="Men's"/>
+        </SearchGroupData>
+        <TerritoryAvailable>USA</TerritoryAvailable>
+      </IndexItemDetail>
+    </IndexItemAdd>
+    </IndexItem>
+  <IndexItem>
+    <IndexItemDelete>
+      <ItemID>
+        <SupplierPartID>pn12356</SupplierPartID>
+      </ItemID>
+    </IndexItemDelete>
+    <IndexItemDelete>
+      <ItemID>
+        <SupplierPartID>pn12357</SupplierPartID>
+      </ItemID>
+    </IndexItemDelete>
+  </IndexItem>
+  <IndexItem>
+    <IndexItemPunchout>
+      <ItemID>
+        <SupplierPartID>pn12399</SupplierPartID>
+      </ItemID>
+      <PunchoutDetail>
+        <Description xml:lang="en-US">Ruby slippers</Description>
+        <URL>http://oz.com/Dorothy/shoes/red.htm</URL>
+        <Classification domain="SPSC">5136030000</Classification>
+        <ManufacturerName>Wizard Shoes</ManufacturerName>
+        <ManufacturerPartID>WSRS1</ManufacturerPartID>
+        <ExpirationDate>2010-01-01</ExpirationDate>
+        <EffectiveDate>1999-11-24</EffectiveDate>
+        <SearchGroupData>
+          <Name xml:lang="en">DressShoe</Name>
+          <SearchDataElement name="Size" value="4"/>
+          <SearchDataElement name="Color" value="Ruby Red"/>
+          <SearchDataElement name="Gender" value="Women's"/>
+        </SearchGroupData>
+        <TerritoryAvailable>US</TerritoryAvailable>
+        <TerritoryAvailable>UK</TerritoryAvailable>
+      </PunchoutDetail>
+    </IndexItemPunchout>
+  </IndexItem>
+</Index>

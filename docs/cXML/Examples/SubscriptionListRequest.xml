@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+<!--
+    Request for getting the list of catalog subscriptions for a buyer.
+ -->
+<cXML payloadID="456778-200@ariba.acme.com" xml:lang="en-US"
+      timestamp="1999-03-12T18:39:09-08:00">
+    <Header>
+        <From>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@ariba.com</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+                <SharedSecret>coyote</SharedSecret>
+            </Credential>
+            <UserAgent>ORMS V6.1</UserAgent>
+        </Sender>
+    </Header>
+    <Request>
+        <SubscriptionListRequest/>
+    </Request>
+</cXML>

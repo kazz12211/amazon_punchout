@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+<!--
+        Message indicating change in a supplier's information.
+        Generated when new supplier relationship is added,
+        supplier info is  updated, supplier relationship is deleted etc..
+-->
+<cXML payloadID="456778-200@ariba.com" xml:lang="en-US"
+      timestamp="1999-03-12T18:39:09-08:00">
+    <Header>
+        <From>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@ariba.com</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@ariba.com</Identity>
+            </Credential>
+            <UserAgent>Ariba.com</UserAgent>
+        </Sender>
+    </Header>
+    <Message>
+        <SupplierChangeMessage type="new">
+             <Supplier corporateURL="http://www.workchairs.com"
+	               storeFrontURL="http://buy.workchairs.com">
+                <Name xml:lang="en-US">Workchairs </Name>
+                <Comments xml:lang="en-US">this is a cool company</Comments>
+                <SupplierID domain="DUNS">942888711</SupplierID>
+                <SupplierLocation>
+                   <Address>
+                       <Name xml:lang="en-US">Main Office</Name>
+                       <PostalAddress>
+                            <DeliverTo>Bob A. Worker</DeliverTo>
+                            <Street>123 Front Street</Street>
+                            <City>Toosunny</City>
+                            <State>CA</State>
+                            <PostalCode>95000</PostalCode>
+                            <Country isoCountryCode="US">United States</Country>
+                       </PostalAddress>
+                       <Email>bobw@workchairs.com</Email>
+                       <Phone name="Office">
+                             <TelephoneNumber>
+                                 <CountryCode isoCountryCode="US">011</CountryCode>
+                                 <AreaOrCityCode>800</AreaOrCityCode>
+                                 <Number>555-1212</Number>
+                             </TelephoneNumber>
+                       </Phone>
+                       <Fax name="Order">
+                            <TelephoneNumber>
+                                <CountryCode isoCountryCode="US">011</CountryCode>
+                                <AreaOrCityCode>408</AreaOrCityCode>
+                                <Number>555-1234</Number>
+                            </TelephoneNumber>
+                       </Fax>
+                       <URL>http://www.workchairs.com/Support.htm</URL>
+                   </Address>
+                   <OrderMethods>
+                       <OrderMethod>
+                            <OrderTarget>
+                                 <URL>http://www.workchairs.com/cxmlorders</URL>
+                            </OrderTarget>
+                            <OrderProtocol>cXML</OrderProtocol>
+                       </OrderMethod>
+                   </OrderMethods>
+                </SupplierLocation>
+            </Supplier>
+        </SupplierChangeMessage>
+    </Message>
+</cXML>

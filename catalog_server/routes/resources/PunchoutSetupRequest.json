@@ -1,0 +1,196 @@
+{
+    "declaration": {
+        "attributes": {
+            "version": "1.0",
+            "encoding": "UTF-8"
+        }
+    },
+    "elements": [
+        {
+            "type": "doctype",
+            "doctype": "cXML SYSTEM \"http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd\""
+        },
+        {
+            "type": "element",
+            "name": "cXML",
+            "attributes": {
+                "payloadID": "1233444-200@ariba.acme.com",
+                "xml:lang": "en-US",
+                "timestamp": "1999-03-12T18:39:09-08:00"
+            },
+            "elements": [
+                {
+                    "type": "element",
+                    "name": "Header",
+                    "elements": [
+                        {
+                            "type": "element",
+                            "name": "From",
+                            "elements": [
+                                {
+                                    "type": "element",
+                                    "name": "Credential",
+                                    "attributes": {
+                                        "domain": "AribaNetworkUserId"
+                                    },
+                                    "elements": [
+                                        {
+                                            "type": "element",
+                                            "name": "Identity",
+                                            "elements": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "admin@acme.com"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "element",
+                            "name": "To",
+                            "elements": [
+                                {
+                                    "type": "element",
+                                    "name": "Credential",
+                                    "attributes": {
+                                        "domain": "DUNS"
+                                    },
+                                    "elements": [
+                                        {
+                                            "type": "element",
+                                            "name": "Identity",
+                                            "elements": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "942888711"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "element",
+                            "name": "Sender",
+                            "elements": [
+                                {
+                                    "type": "element",
+                                    "name": "Credential",
+                                    "attributes": {
+                                        "domain": "AribaNetworkUserId"
+                                    },
+                                    "elements": [
+                                        {
+                                            "type": "element",
+                                            "name": "Identity",
+                                            "elements": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "admin@acme.com"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "element",
+                                            "name": "SharedSecret",
+                                            "elements": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "coyote"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "element",
+                                    "name": "UserAgent",
+                                    "elements": [
+                                        {
+                                            "type": "text",
+                                            "text": "Ariba ORMS 5.1P4 "
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "element",
+                    "name": "Request",
+                    "elements": [
+                        {
+                            "type": "element",
+                            "name": "PunchOutSetupRequest",
+                            "attributes": {
+                                "operation": "create"
+                            },
+                            "elements": [
+                                {
+                                    "type": "element",
+                                    "name": "BuyerCookie",
+                                    "elements": [
+                                        {
+                                            "type": "text",
+                                            "text": "34234234ADFSDF234234"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "element",
+                                    "name": "Extrinsic",
+                                    "attributes": {
+                                        "name": "randomKey"
+                                    },
+                                    "elements": [
+                                        {
+                                            "type": "text",
+                                            "text": "department code"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "element",
+                                    "name": "BrowserFormPost",
+                                    "elements": [
+                                        {
+                                            "type": "element",
+                                            "name": "URL",
+                                            "elements": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "http://ariba.acme.com:1616/punchoutexit"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "element",
+                                    "name": "SupplierSetup",
+                                    "elements": [
+                                        {
+                                            "type": "element",
+                                            "name": "URL",
+                                            "elements": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "http://workchairs.com/cxml"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+<cXML payloadID="3223232@ariba.acme.com"
+      timestamp="1999-03-12T18:39:09-08:00" xml:lang="en-US">
+    <Header>
+        <From>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+            </Credential>
+            <Credential domain="AribaNetworkUserId" type="marketplace">
+                <Identity>bigadmin@marketplace.org</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="DUNS">
+                <Identity>942888711</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="AribaNetworkUserId">
+                <Identity>admin@acme.com</Identity>
+                <SharedSecret>abracadabra</SharedSecret>
+            </Credential>
+            <UserAgent>Ariba.com Network V1.0</UserAgent>
+        </Sender>
+    </Header>
+    <Request deploymentMode="test">
+        <OrderRequest>
+             <OrderRequestHeader orderID="DO1234" orderDate="1999-03-12" type="new">
+                 <Total>
+                     <Money currency="USD">2.68</Money>
+                 </Total>
+                 <ShipTo>
+                     <Address>
+                         <Name xml:lang="en">Acme</Name>
+                         <PostalAddress name="default">
+                             <DeliverTo>Joe Smith</DeliverTo>
+                             <DeliverTo>Mailstop M-543</DeliverTo>
+                             <Street>123 Anystreet</Street>
+                             <City>Sunnyvale</City>
+                             <State>CA</State>
+                             <PostalCode>90489</PostalCode>
+                             <Country isoCountryCode="US">United States</Country>
+                         </PostalAddress>
+                     </Address>
+                 </ShipTo>
+                 <BillTo>
+                     <Address>
+                         <Name xml:lang="en">Acme</Name>
+                         <PostalAddress name="default">
+                             <Street>123 Anystreet</Street>
+                             <City>Sunnyvale</City>
+                             <State>CA</State>
+                             <PostalCode>90489</PostalCode>
+                             <Country isoCountryCode="US">United States</Country>
+                         </PostalAddress>
+                     </Address>
+                 </BillTo>
+                 <Tax>
+                     <Money currency="USD">0.19</Money>
+                     <Description xml:lang="en">CA Sales Tax</Description>
+                 </Tax>
+                 <Payment>
+                     <PCard number="1234567890123456" expiration="1999-03-12"/>
+                 </Payment>
+                 <Comments xml:lang="en-US">Anything well formed in XML can go here.</Comments>
+             </OrderRequestHeader>
+             <ItemOut quantity="2" requestedDeliveryDate="1999-03-12">
+                 <ItemID>
+                     <SupplierPartID>1233244</SupplierPartID>
+                 </ItemID>
+                 <ItemDetail>
+                    <UnitPrice>
+                        <Money currency="USD">1.34</Money>
+                    </UnitPrice>
+                    <Description xml:lang="en">hello</Description>
+                    <UnitOfMeasure>EA</UnitOfMeasure>
+                    <Classification domain="SPSC">12345</Classification>
+                    <ManufacturerPartID>234</ManufacturerPartID>
+                    <ManufacturerName>foobar</ManufacturerName>
+                    <URL>www.foo.com</URL>
+                 </ItemDetail>
+                 <Shipping trackingDomain="FedEx" trackingId="1234567890">
+                     <Money currency="USD">2.5</Money>
+                     <Description xml:lang="en-us">FedEx 2-day</Description>
+                 </Shipping>
+                 <Distribution>
+                     <Accounting name="DistributionCharge">
+                         <Segment type="G/L Account" id="23456" description="Entertainment"/>
+                         <Segment type="Cost Center" id="2323" description="Western Region Sales"/>
+                     </Accounting>
+                     <Charge>
+                         <Money currency="USD">.34</Money>
+                     </Charge>
+                 </Distribution>
+                 <Distribution>
+                     <Accounting name="DistributionCharge">
+                         <Segment type="G/L Account" id="456" description="Travel"/>
+                         <Segment type="Cost Center" id="23" description="Europe Implementation"/>
+                     </Accounting>
+                     <Charge>
+                         <Money currency="USD">1</Money>
+                     </Charge>
+                 </Distribution>
+                 <Comments xml:lang="en-US">Anything well formed in XML can go here.</Comments>
+             </ItemOut>
+         </OrderRequest>
+    </Request>
+</cXML>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+<!--
+        Response to SupplierListRequest. Includes meta-data for all
+        the applicable Suppliers.
+-->
+<cXML payloadID="9949494-200@ariba.com" xml:lang="en-US"
+      timestamp="1999-03-12T18:39:09-08:00">
+    <Response>
+        <Status code="200" text="OK"/>
+        <SupplierListResponse>
+                <Supplier corporateURL="http://www.workchairs.com"
+		          storeFrontURL="http://buy.workchairs.com">
+                     <Name xml:lang="en-US">Workchairs</Name>
+                     <Comments xml:lang="en-US">this is a cool company</Comments>
+                     <SupplierID domain="DUNS">942888711</SupplierID>
+                </Supplier>
+                <Supplier corporateURL="http://www.dummy.com"
+		          storeFrontURL="http://www.buydummy.com">
+                     <Name xml:lang="en-US">A Dummy Company </Name>
+                     <Comments xml:lang="en-US">this is a cool company</Comments>
+                     <SupplierID domain="DUNS">123456789</SupplierID>
+                 </Supplier>
+        </SupplierListResponse>
+    </Response>
+</cXML>

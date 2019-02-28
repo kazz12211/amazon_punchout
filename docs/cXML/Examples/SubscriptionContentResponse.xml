@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
+<!--
+        Response to SubscriptionContentRequest. Includes meta-data as well
+	as content.  Content is formatted differently based on where it is
+	CIF or cXML.
+-->
+<cXML payloadID="9949494-197@ariba.com" xml:lang="en-US"
+      timestamp="1999-03-12T18:39:09-08:00">
+    <Response>
+        <Status code="200" text="OK"/>
+        <SubscriptionContentResponse>
+            <Subscription>
+                <InternalID>1234</InternalID>
+                <Name xml:lang="en-US">Q2 Prices</Name>
+                <Changetime>1999-03-12T18:39:09-08:00</Changetime>
+                <SupplierID domain="DUNS">942888711</SupplierID>
+                <Format version="3.0">CIF</Format>
+                <Description xml:lang="en-US">The best prices for chairs</Description>
+            </Subscription>
+            <SubscriptionContent filename="foobar.cif">
+                <CIFContent>
+                    <!-- base64 encoded data -->
+                    ABCDBBDBDBDBDB
+                </CIFContent>
+            </SubscriptionContent>
+         </SubscriptionContentResponse>
+     </Response>
+</cXML>
