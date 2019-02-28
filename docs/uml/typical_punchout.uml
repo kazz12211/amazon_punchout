@@ -1,0 +1,29 @@
+@startuml
+title: Typical Punchout Transaction
+actor User
+participant BuyApp
+participant Amazon
+User -> BuyApp: Select Amazon Punchout on UI
+BuyApp -> Amazon: Send cXML:PunchoutSetupRequest
+Amazon -> BuyApp: Send back cXML:PunchoutSetupResponse with OK Status
+BuyApp -> User: Present Amazon catalog in iframe or new window
+note right
+If Status of the PunchoutSetupResponse is not 200 (OK),
+presents error message to User and stop process followed by.
+end note
+User -> Amazon: Browse items from Amazon catalog and put them into shopping cart
+User -> Amazon: Checkout
+Amazon -> BuyApp: Send cXML:PunchoutOrderMessage which contains cart content
+BuyApp -> BuyApp: Put Amazon cart content into own order line items
+User -> BuyApp: Submit order for approval
+BuyApp->BuyApp: Internal approval workflow process
+BuyApp -> Amazon: Send cXML:OrderRequest
+... after Amazon processed the order ...
+Amazon -> BuyApp: Send cXML:OrderConfirmation
+Amazon -> User: Send order confirmation email
+... after Amazon shipped the order ...
+Amazon -> BuyApp: Sender cXML:ShipmentConfirmation
+Amazon -> User: Send shipment confirmation email
+@enduml
+
+

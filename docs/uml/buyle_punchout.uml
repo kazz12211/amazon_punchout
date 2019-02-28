@@ -1,0 +1,31 @@
+@startuml
+title: Tradeshift Buy LE Order Transaction with Amazon Punchout
+actor User
+participant BuyLE
+participant Tradeshift
+participant Amazon
+participant iPaaS
+
+User -> BuyLE: Select Amazon Punchout on UI
+BuyLE -> Amazon: Send cXML:PunchoutSetupRequest
+Amazon -> BuyLE: Send back cXML:PunchoutSetupResponse with OK Status
+BuyLE -> User: Present Amazon catalog in iframe or new window
+note right
+If Status of the PunchoutSetupResponse is not 200 (OK),
+presents error message to User and stop process followed by.
+end note
+User -> Amazon: Browse items from Amazon catalog and put them into shopping cart
+User -> Amazon: Checkout
+Amazon -> BuyLE: Send cXML:PunchoutOrderMessage which contains cart content
+BuyLE -> BuyLE: Put Amazon cart content into InvoiceRequest's line items
+User -> BuyLE: Submit InvoiceRequest for approval
+BuyLE->BuyLE: Internal approval workflow process
+BuyLE -> Tradeshift: Send PurchaseOrder
+Tradeshift -> Amazon: Send cXML:OrderRequest
+... after Amazon processed the order ...
+Amazon -> iPaaS: Send cXML:OrderConfirmation and store the confirmaiton
+iPaaS -> BuyLE: Receive order confirmation
+... after Amazon shipped the order ...
+Amazon -> iPaaS: Send cXML:ShipmentConfirmation and store the confirmation
+iPaaS -> BuyLE: Receive shipment confirmation
+@enduml
