@@ -6,7 +6,7 @@
     </div>
     <nav>
         <ul>
-            <li><a href="#"><i class="fas fa-shopping-cart"></i> カートの中身を見る</a></li>
+            <li><a href="/cart/{{buyerCookie}}"><i class="fas fa-shopping-cart"></i> カートの中身を見る</a></li>
         </ul>
     </nav>
 </header>
@@ -16,7 +16,16 @@
             <div class="catalog-item">
                 <h3>{{this.name}}</h3>
                 <div class="command">
-                    <p><a href="#"><i class="fas fa-cart-plus"></i> カートに追加</a></p>
+                    <form method="POST" action="/cart/add">
+                        <input type="hidden" name="cookie" value="{{@root.buyerCookie}}">
+                        <input type="hidden" name="productId" value="{{this.productId}}">
+                        <input type="hidden" name="name" value="{{this.name}}">
+                        <input type="hidden" name="description" value="{{this.description}}">
+                        <input type="hidden" name="price" value="{{this.price}}">
+                        <input type="hidden" name="uom" value="{{this.uom}}">
+                        <input type="submit" value="カートに追加">
+                    </form>
+                    <br/>
                 </div>
                 <img src="{{this.url}}">
                 <p>{{this.description}}</p>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.1.010/cXML.dtd">
 <cXML payloadID="456778-199@cxml.workchairs.com"
-      xml:lang="en-US" timestamp="1999-03-12T18:39:09-08:00">
+      xml:lang="en-US" timestamp="{timestamp}">
     <Response>
         <Status code="200" text="OK"/>
         <PunchOutSetupResponse>
             <StartPage>
-                <URL>http://localhost:5500/catalog/id:100</URL>
+                <URL>http://localhost:5500/catalog/id:{id}</URL>
             </StartPage>
         </PunchOutSetupResponse>
     </Response>

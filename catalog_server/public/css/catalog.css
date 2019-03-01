@@ -80,15 +80,79 @@ header a:hover {
 .catalog-item a {
     color: black;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .catalog-item a:hover {
     font-weight: bold;
     color: #888;
-    cursor: pointer;
 }
 
 .catalog-item .command {
     display: inline-block;
     float: right;
+}
+
+.shopping-cart {
+    padding: 8px;
+    display: inline-block;
+    width: 65%;
+}
+
+.cart-item h3 {
+    font-size: 15px;
+}
+
+.cart-item {
+    padding: 20px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+}
+.cart-item:hover {
+    box-shadow: 0 4px 10px rgba(104, 104, 104, 0.8);
+}
+
+.cart-item a {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cart-item a:hover {
+    font-weight: bold;
+    color: #888;
+}
+.btn {
+    display: inline-block;
+    border: 1px solid #35424a;
+    padding: 10px 20px 10px 20px;
+    background-color: #35424a;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    width: 80%;
+    text-align: center;
+}
+
+.btn:hover {
+    font-weight: bold;
+    color: #888;
+}
+
+.checkout {
+    width: 30%;
+    float:right;
+    font-size: 15px;
+}
+.checkout .label {
+    padding-bottom: 4px;
+    border-bottom: #888 2px solid;
+    width: 90%;
+    font-weight: bold;
+}
+.checkout .amount {
+    padding-bottom: 4px;
+    border-bottom: #e8491d 2px solid;
+    width: 90%;
+    font-weight: bold;
 }

@@ -1,0 +1,35 @@
+<header>
+    <div class="container">
+        <div id="branding">
+            <h1>{{title}}</h1>
+        </div>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/catalog/{{buyerCookie}}"><i class="fas fa-table"></i> カタログに戻る</a></li>
+        </ul>
+    </nav>
+</header>
+<section id="shopping-cart">
+    <div class="checkout">
+        <p class="label">合計金額</p>
+        <p class="amount">{{total}} 円</p>
+        <p><a href="#" class="btn right">チェックアウト</a></p>
+    </div>
+    <div class="shopping-cart">
+        {{#each items}}
+            <div class="cart-item">
+                <h3>{{this.name}}</h3>
+                <p>{{this.description}}</p>
+                <p>価格 {{this.price}}円</p>
+                <p>数量 {{this.quantity}} {{this.uom}}</p>
+                <form method="POST" action="/cart/remove">
+                    <input type="hidden" name="cookie" value="{{@root.buyerCookie}}">
+                    <input type="hidden" name="productId" value="{{this.productId}}">
+                    <input type="submit" value="削除">
+                </form>
+           </div>
+        {{/each}}
+    </div>
+
+</section>

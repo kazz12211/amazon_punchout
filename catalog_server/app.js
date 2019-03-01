@@ -5,13 +5,8 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 var bodyParser = require('body-parser');
 require('body-parser-xml-json')(bodyParser);
-
-const url = 'mongodb://172.17.0.2:27017/catalogs';
-const options = {
-    useNewUrlParser: true,
-    reconnectTries: 60,
-    reconnectInterval: 1000
-};
+const config = require('./routes/config');
+const ShoppingCart = require('./routes/shoppingcart');
 
 const app = express();
 
@@ -28,29 +23,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Punchout API
 app.use('/punchout', require('./routes/punchout/Punchout'));
 
-// Catalog
-app.get('/catalog/:id', (req, res) => {
-    const query = {userId: req.params.id};
-
-    MongoClient.connect(url, options, (err, client) => {
-        if(err) {
-            console.log(err);
-        }
-        const dbo = client.db('catalogs');
-        console.log('Fetching shopping cart with id: ' + query.userId);
-        console.log('Fetching catalog items');
-        dbo.collection('catalog_items').find({}).toArray( (err, results) => {
-            if(err) {
-                console.log(err);
-            }
-            client.close();
-            res.render('catalog', {
-                title: 'パンチアウトカタログサーバー',
-                items: results
-            });
-        });
-    });
-});
+// Shopping Cart
+app.get('/catalog/:id', ShoppingCart.catalog);
+app.get('/cart/:id', ShoppingCart.cart);
+app.post('/cart/add', ShoppingCart.add);
+app.post('/cart/remove', ShoppingCart.remove);
 
 const PORT = process.env.PORT || 5000;
 

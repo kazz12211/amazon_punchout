@@ -1,13 +1,99 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const parse = require('xml2js').parseString;
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
+const config = require('../config');
+
+connectDb = () => {
+    return new Promise( (resolve, reject) => {
+        MongoClient.connect(url, options, (err, client) => {
+            if(err) {
+                reject(err);
+            } else {
+                resolve(client);
+            }
+        });
+    });
+};
+
+findShoppingCart = (client, buyerCookie) => {
+    return new Promise( (resolve, reject) => {
+        const dbo = client.db('catalogs');
+        console.log('Finding Shopping Cart with buyerCookie (' + buyerCookie + ')');
+        dbo.collection('shopping_carts').find({buyerCookie: buyerCookie}).toArray( (err, result) => {
+            if(err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
+
+createShoppingCart = (client, buyerCookie) => {
+    return new Promise( (resolve, reject) => {
+        const dbo = client.db('catalogs');
+        // Create new shopping cart
+        dbo.collection('shopping_carts').insertOne({buyerCookie: buyerCookie, items: []}, (err, r) => {
+            if(err) {
+                reject(err);
+            } else {
+                resolve(r);
+            }
+        });
+    });
+};
+
+clearShoppingCart = (client, buyerCookie) => {
+    return new Promise( (resolve, reject) => {
+        const dbo = client.db('catalogs');
+        // Clear shopping cart items
+        dbo.collection('shopping_carts').updateOne({buyerCookie: buyerCookie}, {$set: {items: []}}, (err, r) => {
+            if(err) {
+                reject(err);
+            } else {
+                resolve(r);
+            }
+        });
+    });
+};
 
 function punchoutSetupResponse(punchoutRequest, res) {
     /*
         Prepare shopping cart. 
-        Use punchoutRequest.buyerCookie for cart key
+        Use punchoutRequest.buyerCookie for cart key.
+        punchoutRequest.operation should be taken into account.
     */
+    MongoClient.connect(config.db.url, config.db.options, (err, client) => {
+        if(err) {
+            console.log(err);
+        }
+        const dbo = client.db('catalogs');
+        // Find shopping cart with buyerCookie
+        console.log('Finding Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ')');
+        dbo.collection('shopping_carts').find({buyerCookie: punchoutRequest.buyerCookie}).toArray( (err, result) => {
+            // If shopping cart not found
+            if(result.length === 0) {
+                console.log('Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ') not found');
+                // Create new shopping cart
+                dbo.collection('shopping_carts').insertOne({buyerCookie: punchoutRequest.buyerCookie, items: []}, (err, r) => {
+                    console.log('Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ') created');
+                    client.close();
+                });
+            } 
+            // if shopping cart found
+            else {
+                // Clear shopping cart items
+                console.log('Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ') found');
+                dbo.collection('shopping_carts').updateOne({buyerCookie: punchoutRequest.buyerCookie}, {$set:{items:[]}}, (err, r) => {
+                    console.log('Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ') cleared');
+                    client.close();
+                });
+            }
+        });
+    });
+
    /*
         Send PunchoutSetupResponse with StartPage.URL = http://localhost:5500/catalog/id:{cart key}
         Buyer App will 
@@ -15,47 +101,57 @@ function punchoutSetupResponse(punchoutRequest, res) {
     res.send(punchoutRequest);
 }
 
-router.post('/setup', (req, res) => {
-    var data = req.body;
+function _get_element(data, elementName) {
+    return data.elements.find( e => e.name === elementName);
+}
 
-    const root = data.elements.find( e => e.name === 'cXML');
-    const payloadId = root.attributes.payloadID;
-    const timestamp = root.attributes.timestamp;
-    const header = root.elements.find( e => e.name === 'Header');
-    const from = header.elements.find( e => e.name === 'From');
-    const fromCredential = from.elements.find( e => e.name === 'Credential');
-    const fromIdentity = fromCredential.elements.find( e => e.name === 'Identity');
-    const to = header.elements.find( e => e.name === 'To');
-    const toCredential = to.elements.find( e => e.name === 'Credential');
-    const toIdentity = toCredential.elements.find( e => e.name === 'Identity');
-    const sender = header.elements.find( e => e.name === 'Sender');
-    const senderCredential = sender.elements.find( e => e.name === 'Credential');
-    const senderIdentity = senderCredential.elements.find( e => e.name === 'Identity');
-    const senderSharedSecret = senderCredential.elements.find( e => e.name === 'SharedSecret');
-    const senderUserAgent = sender.elements.find( e => e.name === 'UserAgent');
-    const request = root.elements.find( e => e.name === 'Request');
-    const punchout = request.elements.find( e => e.name === 'PunchOutSetupRequest');
-    const cookie = punchout.elements.find( e => e.name === 'BuyerCookie');
-    const formPost = punchout.elements.find( e => e.name == 'BrowserFormPost');
-    const formPostURL = formPost.elements.find( e => e.name === 'URL');
-    const supplierSetup = punchout.elements.find( e => e.name == 'SupplierSetup');
-    const supplierSetupURL = supplierSetup.elements.find( e => e.name === 'URL');
+function _get_element2(data, firstElement, secondElement) {
+    return _get_element(_get_element(data, firstElement), secondElement);
+}
+
+function _get_element3(data, firstElement, secondElement, thirdElement) {
+    return _get_element(_get_element2(data, firstElement, secondElement), thirdElement);
+}
+
+function punchoutSetupRequestFromData(data) {
+    const root = _get_element(data, 'cXML');
+    const header = _get_element(root, 'Header');
+    const fromIdentity = _get_element3(header, 'From', 'Credential', 'Identity');
+    const toIdentity = _get_element3(header, 'To', 'Credential', 'Identity');
+    const senderIdentity = _get_element3(header, 'Sender', 'Credential', 'Identity');
+    const senderSharedSecret = _get_element3(header, 'Sender', 'Credential', 'SharedSecret');
+    const userAgent = _get_element2(header, 'Sender', 'UserAgent');
+    const punchout = _get_element2(root, 'Request', 'PunchOutSetupRequest');
+    const cookie = _get_element(punchout, 'BuyerCookie');
+    const formPostURL = _get_element2(punchout, 'BrowserFormPost', 'URL');
+    const supplierSetupURL = _get_element2(punchout, 'SupplierSetup', 'URL');
 
     var poRequest = {
-        payloadId: payloadId,
-        timestamp: timestamp,
+        payloadId: root.attributes.payloadID,
+        timestamp: root.attributes.timestamp,
         from: fromIdentity.elements[0].text,
         to: toIdentity.elements[0].text,
         sender: senderIdentity.elements[0].text,
         sharedSecret: senderSharedSecret.elements[0].text,
-        userAgent: senderUserAgent.elements[0].text,
+        userAgent: userAgent.elements[0].text,
         operation: punchout.attributes.operation,
         buyerCookie: cookie.elements[0].text,
         browserFormPost: formPostURL.elements[0].text,
         supplierSetup: supplierSetupURL.elements[0].text
     };
 
-    punchoutSetupResponse(poRequest, res);
+    return poRequest;
+}
+
+router.post('/setup', (req, res) => {
+    var data = req.body;
+
+    const punchoutRequest = punchoutSetupRequestFromData(data);
+
+    console.log('Got PunchOutSetupRequest:');
+    console.log(JSON.stringify(punchoutRequest));
+
+    punchoutSetupResponse(punchoutRequest, res);
 });
 
 
