@@ -21,8 +21,7 @@
             <div class="cart-item">
                 <h3>{{this.name}}</h3>
                 <p>{{this.description}}</p>
-                <p>価格 {{this.price}}円</p>
-                <p>数量 {{this.quantity}} {{this.uom}}</p>
+                <p>価格 {{this.price}}円  数量 {{this.quantity}} {{this.uom}}  合計 {{this.amount}} 円</p>
                 <form method="POST" action="/cart/remove">
                     <input type="hidden" name="cookie" value="{{@root.buyerCookie}}">
                     <input type="hidden" name="productId" value="{{this.productId}}">

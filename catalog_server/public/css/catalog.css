@@ -52,6 +52,8 @@ header a:hover {
     cursor: pointer;
 }
 
+/* Catalog */
+
 .catalog {
     padding: 20px;
     display: grid;
@@ -93,6 +95,8 @@ header a:hover {
     float: right;
 }
 
+/* Shopping Cart */
+
 .shopping-cart {
     padding: 8px;
     display: inline-block;
@@ -106,7 +110,7 @@ header a:hover {
 .cart-item {
     padding: 20px;
     border: 1px solid #ccc;
-    font-size: 12px;
+    font-size: 14px;
 }
 .cart-item:hover {
     box-shadow: 0 4px 10px rgba(104, 104, 104, 0.8);

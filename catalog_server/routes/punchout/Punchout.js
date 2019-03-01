@@ -5,60 +5,6 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const config = require('../config');
 
-connectDb = () => {
-    return new Promise( (resolve, reject) => {
-        MongoClient.connect(url, options, (err, client) => {
-            if(err) {
-                reject(err);
-            } else {
-                resolve(client);
-            }
-        });
-    });
-};
-
-findShoppingCart = (client, buyerCookie) => {
-    return new Promise( (resolve, reject) => {
-        const dbo = client.db('catalogs');
-        console.log('Finding Shopping Cart with buyerCookie (' + buyerCookie + ')');
-        dbo.collection('shopping_carts').find({buyerCookie: buyerCookie}).toArray( (err, result) => {
-            if(err) {
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
-    });
-};
-
-createShoppingCart = (client, buyerCookie) => {
-    return new Promise( (resolve, reject) => {
-        const dbo = client.db('catalogs');
-        // Create new shopping cart
-        dbo.collection('shopping_carts').insertOne({buyerCookie: buyerCookie, items: []}, (err, r) => {
-            if(err) {
-                reject(err);
-            } else {
-                resolve(r);
-            }
-        });
-    });
-};
-
-clearShoppingCart = (client, buyerCookie) => {
-    return new Promise( (resolve, reject) => {
-        const dbo = client.db('catalogs');
-        // Clear shopping cart items
-        dbo.collection('shopping_carts').updateOne({buyerCookie: buyerCookie}, {$set: {items: []}}, (err, r) => {
-            if(err) {
-                reject(err);
-            } else {
-                resolve(r);
-            }
-        });
-    });
-};
-
 function punchoutSetupResponse(punchoutRequest, res) {
     /*
         Prepare shopping cart. 
