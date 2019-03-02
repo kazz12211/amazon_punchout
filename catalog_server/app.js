@@ -6,6 +6,7 @@ const MongoClient = mongodb.MongoClient;
 var bodyParser = require('body-parser');
 require('body-parser-xml-json')(bodyParser);
 const config = require('./routes/config');
+const Punchout = require('./routes/punchout');
 const ShoppingCart = require('./routes/shoppingcart');
 
 const app = express();
@@ -21,7 +22,7 @@ app.use(bodyParser.xml());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Punchout API
-app.use('/punchout', require('./routes/punchout/Punchout'));
+app.use('/punchout', Punchout);
 
 // Shopping Cart
 app.get('/catalog/:id', ShoppingCart.catalog);
