@@ -1,0 +1,46 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+main {
+    flex: 1 0 auto;
+}
+
+iframe {
+    border: 1px solid black;
+    box-shadow: 0 4px 10px rgba(104, 104, 104, 0.8);
+}
+
+.leftspace {
+    margin-left: 20px;
+}
+
+.punchout-window {
+    padding: 20px;
+    width: 100%;
+}
+.lineitems {
+    padding: 20px;
+}
+
+th {
+    color: #888;
+    font-weight: normal;
+    padding: 8px;
+}
+
+.table-label {
+    color: #888;
+}
+
+.number-col {
+    padding: 8px;
+    text-align: right;
+}
+
+.text-col {
+    padding: 8px;
+    text-align: left;
+}

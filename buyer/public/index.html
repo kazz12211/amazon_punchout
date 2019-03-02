@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/materialize.min.css" />
+    <script src="scripts/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.7/angular-animate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controller.js"></script>
+    <title>Document</title>
+</head>
+
+<body ng-app="app" ng-controller="controller">
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo leftspace">購買アプリケーションサンプル</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="requester" type="text" class="validate" ng-model="order.requester">
+                        <label for="requester">申請者</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="requestDate" type="text" class="datepicker" ng-model="order.requestDate">
+                        <label for="requestDate">申請日</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="title" type="text" class="validate" ng-model="order.title">
+                        <label for="title">件名</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div style="padding: 20px;">
+            <div class="row">
+                <a ng-click="punchout()" class="waves-effect waves-light btn right col s2">オンラインカタログ</a>
+            </div>
+        </div>
+        <div ng-show="!punchoutInProgress" class="lineitems">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="50%" class="text-col">品名</th>
+                        <th width="20%" class="number-col">単価</th>
+                        <th width="10%" class="number-col">数量</th>
+                        <th width="20%" class="number-col">金額</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat='item in order.lineitems'>
+                        <td class="text-col">{{item.name}}</td>
+                        <td class="number-col">{{item.price}}</td>
+                        <td class="number-col">{{item.quantity}}</td>
+                        <td class="number-col">{{item.price * item.quantity}}</td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="text-col"><span class="table-label">合計金額（税込み）</span></td>
+                        <td class="number-col">{{totalAmount()}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <a ng-click="submit()" class="waves-effect waves-light btn right col s2">提出</a>
+            </div>
+
+        </div>
+        <div ng-show="punchoutInProgress" class="punchout-window">
+            <iframe src="http://localhost:5000/catalog/34234234ADFSDF234234" frameborder="0" width="100%"
+                height="600px"></iframe>
+        </div>
+
+
+    </main>
+
+    <footer class="page-footer">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2019 Tsubaki Craft
+                <a class="grey-text text-lighten-4 right" href="#!">ホームページ</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

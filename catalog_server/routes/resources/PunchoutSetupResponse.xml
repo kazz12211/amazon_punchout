@@ -6,7 +6,7 @@
         <Status code="200" text="OK"/>
         <PunchOutSetupResponse>
             <StartPage>
-                <URL>http://localhost:5500/catalog/id:{id}</URL>
+                <URL>{url}</URL>
             </StartPage>
         </PunchOutSetupResponse>
     </Response>

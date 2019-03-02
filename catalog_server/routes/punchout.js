@@ -1,50 +1,36 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const mongodb = require('mongodb');
-const MongoClient = mongodb.MongoClient;
-const config = require('./config');
+const CatalogService = require('./catalog_service');
+const moment = require('moment');
+
+const CatalogUrl = "http://localhost:5000/catalog/";
 
 function punchoutSetupResponse(punchoutRequest, res) {
     /*
         Prepare shopping cart. 
         Use punchoutRequest.buyerCookie for cart key.
-        punchoutRequest.operation should be taken into account.
+        punchoutRequest.operation should be taken into account. 
     */
-    MongoClient.connect(config.db.url, config.db.options, (err, client) => {
-        if(err) {
-            console.log(err);
-        }
-        const dbo = client.db('catalogs');
-        // Find shopping cart with buyerCookie
-        console.log('Finding Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ')');
-        dbo.collection('shopping_carts').find({buyerCookie: punchoutRequest.buyerCookie}).toArray( (err, result) => {
-            // If shopping cart not found
-            if(result.length === 0) {
-                console.log('Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ') not found');
-                // Create new shopping cart
-                dbo.collection('shopping_carts').insertOne({buyerCookie: punchoutRequest.buyerCookie, items: []}, (err, r) => {
-                    console.log('Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ') created');
-                    client.close();
-                });
-            } 
-            // if shopping cart found
-            else {
-                // Clear shopping cart items
-                console.log('Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ') found');
-                dbo.collection('shopping_carts').updateOne({buyerCookie: punchoutRequest.buyerCookie}, {$set:{items:[]}}, (err, r) => {
-                    console.log('Shopping Cart with buyerCookie (' + punchoutRequest.buyerCookie + ') cleared');
-                    client.close();
-                });
+    CatalogService.prepareShoppingCart(punchoutRequest.buyerCookie, punchoutRequest.operation, punchoutRequest.browserFormPost).then( (result) => {
+        /*
+            Send PunchoutSetupResponse with StartPage.URL = http://localhost:5500/catalog/id:{cart key}
+        */
+        const url = CatalogUrl + punchoutRequest.buyerCookie;
+        const timestamp = moment().format();
+        fs.readFile('routes/resources/PunchoutSetupResponse.xml', 'utf8', (err, data) => {
+            if(err) {
+                res.send(err);
+            } else {
+                let responseXml = data.replace('{timestamp}', timestamp).replace('{url}', url);
+                console.log(responseXml);
+                res.send(responseXml);
             }
         });
+    }).catch ( (err) => {
+        console.log(err);
+        res.send(err);        
     });
-
-   /*
-        Send PunchoutSetupResponse with StartPage.URL = http://localhost:5500/catalog/id:{cart key}
-        Buyer App will 
-    */
-    res.send(punchoutRequest);
 }
 
 function _get_element(data, elementName) {

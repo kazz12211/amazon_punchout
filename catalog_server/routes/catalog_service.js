@@ -26,7 +26,7 @@ const CatalogService = {
 
     },
 
-    prepareShoppingCart: (buyerCookie) => {
+    prepareShoppingCart: (buyerCookie, operation, browserFormPost) => {
         return new Promise((resolve, reject) => {
             MongoClient.connect(config.db.url, config.db.options, (err, client) => {
                 if (err) {
@@ -43,7 +43,7 @@ const CatalogService = {
                         if (result.length === 0) {
                             console.log('Shopping Cart with buyerCookie (' + buyerCookie + ') not found');
                             // Create new shopping cart
-                            dbo.collection('shopping_carts').insertOne({ buyerCookie: buyerCookie, items: [] }, (err, r) => {
+                            dbo.collection('shopping_carts').insertOne({ buyerCookie: buyerCookie, items: [], browserFormPost: browserFormPost }, (err, r) => {
                                 if (err) {
                                     client.close();
                                     reject(err);
@@ -58,7 +58,7 @@ const CatalogService = {
                         else {
                             // Clear shopping cart items
                             console.log('Shopping Cart with buyerCookie (' + buyerCookie + ') found');
-                            dbo.collection('shopping_carts').updateOne({ buyerCookie: buyerCookie }, { $set: { items: [] } }, (err, r) => {
+                            dbo.collection('shopping_carts').updateOne({ buyerCookie: buyerCookie }, { $set: { items: [], browserFormPost: browserFormPost } }, (err, r) => {
                                 if (err) {
                                     client.close();
                                     reject(err);

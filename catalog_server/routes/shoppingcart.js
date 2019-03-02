@@ -56,6 +56,18 @@ const ShoppingCart = {
             console.log(err);
             res.redirect('/cart/' + buyerCookie);
         });
+    },
+
+    checkout: (req, res) => {
+        const buyerCookie = req.params.id;
+        CatalogService.getShoppingCart(buyerCookie).then( (cart) => {
+            console.log(cart);
+            // Post PunchoutOrderMessage contains cart content to cart.browserFormPost. 
+            res.redirect('/cart/' + buyerCookie);
+        }).catch( (err) => {
+            console.log(err);
+            res.redirect('/cart/' + buyerCookie);
+        });
     }
 };
 
