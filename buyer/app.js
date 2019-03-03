@@ -13,4 +13,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT = process.env.PORT || 3000;
 
+app.post('/checkout', (req, res) => {
+    //console.log(JSON.stringify(req.body, null, '  '));
+    res.send('<Status>OK</Status>');
+});
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

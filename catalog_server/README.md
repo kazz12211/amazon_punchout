@@ -127,3 +127,72 @@ For deployement
 ```
 npm run start
 ```
+
+## 生成されるPunchOutOrderMessage
+
+![](img/cart.png)
+
+```
+<?xml version="1.0"?>
+<cXML payloadID="456778-198@premier.workchairs.com" xml:lang="en-US" timestamp="2019-03-03T23:09:30+09:00">
+  <Header>
+    <From>
+      <Credential domain="DUNS">
+        <Identity>942888711</Identity>
+      </Credential>
+    </From>
+    <To>
+      <Credential domain="AribaNetworkUserId">
+        <Identity>admin@acme.com</Identity>
+      </Credential>
+    </To>
+    <Sender>
+      <Credential domain="DUNS">
+        <Identity>942888711</Identity>
+      </Credential>
+      <UserAgent>CatalogServer</UserAgent>
+    </Sender>
+  </Header>
+  <Message>
+    <PunchOutOrderMessage>
+      <BuyerCookie>34234234ADFSDF234234</BuyerCookie>
+      <PunchOutOrderMessageHeader operationAllowed="edit">
+        <Total>
+          <Money currency="JPY">907200</Money>
+        </Total>
+      </PunchOutOrderMessageHeader>
+      <ItemIn quantity="2">
+        <ItemID>
+          <SupplierPartID>3</SupplierPartID>
+          <SupplierPartAuxiliaryID/>
+        </ItemID>
+        <ItemDetail>
+          <UnitPrice>
+            <Money currency="JPY">280000</Money>
+          </UnitPrice>
+          <Description>ハイパワーピックアップ搭載のソリッドモデルです。染色に藍を使ったジャパンブルーのボディーは他にはない渋い仕上がりです。</Description>
+          <UnitOfMeasure>EA</UnitOfMeasure>
+          <Classification domain="SPSC">12345</Classification>
+          <ManufacturerPartID>man-part-id</ManufacturerPartID>
+          <ManufacturerName>椿工藝舎</ManufacturerName>
+        </ItemDetail>
+      </ItemIn>
+      <ItemIn quantity="1">
+        <ItemID>
+          <SupplierPartID>2</SupplierPartID>
+          <SupplierPartAuxiliaryID/>
+        </ItemID>
+        <ItemDetail>
+          <UnitPrice>
+            <Money currency="JPY">280000</Money>
+          </UnitPrice>
+          <Description>ハイパワーピックアップ搭載で軽量なソリッドモデルです。</Description>
+          <UnitOfMeasure>EA</UnitOfMeasure>
+          <Classification domain="SPSC">12345</Classification>
+          <ManufacturerPartID>man-part-id</ManufacturerPartID>
+          <ManufacturerName>椿工藝舎</ManufacturerName>
+        </ItemDetail>
+      </ItemIn>
+    </PunchOutOrderMessage>
+  </Message>
+</cXML>```

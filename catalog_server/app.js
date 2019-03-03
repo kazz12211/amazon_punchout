@@ -35,6 +35,7 @@ app.get('/catalog/:id', ShoppingCart.catalog);
 app.get('/cart/:id', ShoppingCart.cart);
 app.post('/cart/add', ShoppingCart.add);
 app.post('/cart/remove', ShoppingCart.remove);
+app.get('/checkout/:id', ShoppingCart.checkout);
 
 const PORT = process.env.PORT || 5000;
 

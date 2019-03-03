@@ -87,12 +87,13 @@ const CatalogService = {
                     dbo.collection('shopping_carts').find({ buyerCookie: buyerCookie }).toArray((err, results) => {
                         client.close();
                         const items = results[0].items;
+                        const url = results[0].browserFormPost;
                         let total = 0;
                         items.forEach(item => {
                             let amt = item.quantity * item.price;
                             total = total + amt;
                         });
-                        resolve({ items: items, total: Math.round(total * 1.08) })
+                        resolve({ items: items, total: Math.round(total * 1.08), browserFormPost: url });
                     });
                 }
             });
