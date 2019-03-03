@@ -21,6 +21,12 @@ app.use(bodyParser.xml());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
+});
+
 // Punchout API
 app.use('/punchout', Punchout);
 

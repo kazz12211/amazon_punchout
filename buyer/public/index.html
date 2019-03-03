@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.7/angular-animate.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/service.js"></script>
     <script src="scripts/controller.js"></script>
     <title>Document</title>
 </head>
@@ -47,12 +48,10 @@
             </form>
         </div>
 
-        <div style="padding: 20px;">
-            <div class="row">
-                <a ng-click="punchout()" class="waves-effect waves-light btn right col s2">オンラインカタログ</a>
-            </div>
-        </div>
         <div ng-show="!punchoutInProgress" class="lineitems">
+            <div class="row">
+                <a ng-click="openPunchout()" class="waves-effect waves-light btn right col s2">オンラインカタログ</a>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -80,13 +79,16 @@
             <div class="row">
 
             </div>
-            <div class="row">
-                <a ng-click="submit()" class="waves-effect waves-light btn right col s2">提出</a>
+            <div class="row" ng-show="totalAmount() > 0">
+                <a ng-click="submit()" class="btn right col s2">提出</a>
             </div>
 
         </div>
         <div ng-show="punchoutInProgress" class="punchout-window">
-            <iframe src="http://localhost:5000/catalog/34234234ADFSDF234234" frameborder="0" width="100%"
+            <div class="row">
+                <a ng-click="closePunchout()" class="btn right col s2">オンラインカタログを閉じる</a>
+            </div>
+            <iframe ng-src="{{punchoutURL}}" frameborder="0" width="100%"
                 height="600px"></iframe>
         </div>
 
@@ -101,6 +103,16 @@
             </div>
         </div>
     </footer>
+
+    <div class='modal-wrapper' ng-show="isModal">
+        <div class="container">
+        <div class="modal-area">
+            <div class="title">{{modalTitle}}</div>
+            <div class="message">{{modalMessage}}</div>
+            <button ng-click="closeModal()" class="btn leftspace">OK</button>
+        </div>
+        </div>
+    </div>
 
 </body>
 

@@ -24,6 +24,9 @@ function punchoutSetupResponse(punchoutRequest, res) {
             } else {
                 let responseXml = data.replace('{timestamp}', timestamp).replace('{url}', url);
                 console.log(responseXml);
+                res.header('Content-Type', 'text/xml');
+                res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+                res.header('Pragma', 'no-cache');
                 res.send(responseXml);
             }
         });
