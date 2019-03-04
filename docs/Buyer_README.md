@@ -10,9 +10,36 @@ Buyerはパンチアウトを利用して、購入する物品を選択します
 
 PunchOutOrderMessageを受け取ったBuyerは何らかの方法でPOSTされたcXML文書を読み込み、ショッピングカートの中身を購入品目リストに転記し、カタログサーバーの画面を閉じます。このサンプルアプリケーションでは、1秒おきにデータベースをチェックして新しいPunchOutOrderMessageが保存されていた場合に、それを読み込んで購入品目リストに転記し、データベースに使用済フラグを更新し、iframeを非表示にしてカタログサーバーの画面を消しています。
 
+##### Buyerからカタログサーバーにパンチアウトした様子
+
+![](images/buyer-01.png)
+
+##### カタログサーバー上でショッピングカートに購入物品を入れた様子
+
+![](images/buyer-02.png)
+
+##### チェックアウトしてショッピングカートの内容を表示した様子
+
+![](images/buyer-03.png)
+
+## パンチアウトセッション
+
+![](../out/docs/uml/buyer_catalog-server/buyer_catalog-server.png)
+
+## 開発・実行環境
+
+主要なもの。
+
+- Npm 6.8.0
+- Node 11.10.0
+- Express 4.16.4
+- AngularJS 1.7.7
+- MongoDB driver 3.1.13
+- MongoDB Server 4.0.6
+
 ## 環境設定
 
-Start catalog_server before start this app.
+ Catalog-Serverを起動しておくこと。
 
 ## Mongoデータベースの準備
 
@@ -47,12 +74,13 @@ To permanently disable this reminder, run the following command: db.disableFreeM
 > 
 ```
 
-buyerデータベースを選択（データベースが存在しない場合は作られる）
+buyerデータベースを選択（データベースが存在しない場合は作られる）。
 ```
 > use buyer
 switched to db buyer
 ```
-コレクションを作成
+コレクションを作成。
+punchout_contentsコレクションにはPunchOutOrderMessageをパースした内容が保存される。
 ```
 > db.createCollection('punchout_contents')
 { "ok" : 1 }
@@ -65,7 +93,9 @@ punchout_contents
 
 ## 環境設定
 
-Edit routes/config.js to point mongodb database.
+routes/config.js を編集してMongoDBサーバーへの接続情報を設定する。
+変更するのはdb.urlのみで良い。
+
 ```
 const config = {
     db: {
@@ -231,10 +261,10 @@ http://localhost:3000
                 {
                   "type": "element",
                   "name": "PunchOutOrderMessageHeader",
-                  "attributes": {
-                    "operationAllowed": "edit"
+                  "attributes":。
+                    "operationA。
                   },
-                  "elements": [
+                  "elements": [。
                     {
                       "type": "element",
                       "name": "Total",

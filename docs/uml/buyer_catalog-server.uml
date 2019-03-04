@@ -1,0 +1,33 @@
+@startuml
+title: Punchout Transaction between Buyer and CatalogServer
+Actor User
+participant Buyer
+participant CatalogServer
+
+User -> Buyer: Press 'Punchout' Button while creating Purchase Request
+Buyer -> CatalogServer: HTTP POST 'PunchOutSetupRequest' 
+note right
+BuyerCookie will be used to identify the user 
+throught punchout session.
+end note
+CatalogServer -> CatalogServer: Prepare catalog and shopping cart for the session
+CatalogServer -> CatalogServer: Generate 'PunchOutSetupResponse' contains catalog URL
+CatalogServer -> Buyer: Send back 'PunchOutSetupResponse'
+Buyer -> Buyer: Open a window or iframe to locate catalog URL
+User -> CatalogServer: Select items and put them into shopping cart
+User -> CatalogServer: Press 'Checkout' button to finish item selection
+CatalogServer -> Buyer: HTTP POST 'PunchOutOrderMessage' includes selected items
+Buyer -> Buyer: Close window or iframe of catalog
+note right
+<b>How to detect the receipt of PunchOutOrderMessage?</b>
+
+Depends on design and implementation.
+In case of the buyer example app, 
+PunchOutOrderMessage is saved into 
+database and buyer polls the arrived 
+cart contents periodically.
+end note
+Buyer -> Buyer: Put selected items into Purchase Request's line items and display</i>
+User -> Buyer: <i>Press 'Submit' button to submit Purchase Request for approval
+Buyer-> Buyer: <i>Start approval workflow</i>
+@enduml

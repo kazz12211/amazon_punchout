@@ -10,6 +10,17 @@
 
 PunchOutOrderMessageにはショッピングカートの内容を設定します。
 
+## 開発・実行環境
+
+主要なもの。
+
+- Npm 6.8.0
+- Node 11.10.0
+- Express 4.16.4
+- Express Handlebars 3.0.2
+- MongoDB driver 3.1.13
+- MongoDB Server 4.0.6
+
 
 ## Mongoデータベースの準備
 
@@ -44,12 +55,14 @@ To permanently disable this reminder, run the following command: db.disableFreeM
 > 
 ```
 
-catalogsデータベースを選択（データベースが存在しない場合は作られる）
+catalogsデータベースを選択（データベースが存在しない場合は作られる）。
 ```
 > use catalogs
 switched to db catalogs
 ```
-コレクションを作成
+コレクションを作成。
+catalog_itemsにはカタログの商品が、shopping_cartsにはパンチアウトセッションで使用されるショッピングカートが保存される。
+
 ```
 > db.createCollection('catalog_items')
 { "ok" : 1 }
@@ -112,7 +125,8 @@ db.catalog_items.insertOne({
 
 ## 環境設定
 
-Edit routes/config.js to point mongodb database.
+routes/config.js を編集してMongoDBサーバーへの接続情報を設定する。
+変更するのはdb.urlのみで良い。
 ```
 const config = {
     db: {

@@ -1,17 +1,23 @@
 # Amazon Punchout
 
-## About cXML Punchout
+## cXML Punchout
+
+パンチアウトトランザクションと交換するXML文書を理解する。
 
 [Punchout Order Sequence](docs/PunchoutOrderSequence)
 
 [cXML Users Guide](docs/cXML/cXMLUsersGuide.pdf)
 
-## Punchout Catalog Server
+## Catalog-Server
 
-[README](catalog_server/README.md)
+パンチアウトサイトとして振る舞うカタログサーバー。
+
+[README](docs/Catalog_Server_README.md)
 
 
-## Buyer Application
+## Buyer
 
-[README](buyer/README.md)
+パンチアウトを使用してパンチアウトサイトからショッピングカートの内容を取り込む購買アプリケーションのサンプル。
+
+[README](docs/Buyer_README.md)
 
