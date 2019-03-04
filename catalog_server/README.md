@@ -1,4 +1,15 @@
-# パンチアウトカタログサーバー
+# Catalog Server - パンチアウトカタログサーバー
+
+## 概要
+
+パンチアウトカタログサーバーは、購買アプリケーションからPOSTされたPunchOutSetupRequestを受信すると、アクセスしたユーザー専用のカタログとショッピングカートを準備し、PunchOutSetupResponseにカタログページのURLを設定して返信します。
+
+購買アプリケーションは受け取ったカタログページのURLをフレームやウインドウを開いてアクセスして表示し、ユーザーはその中で購入物品を選択します。
+
+購入物品の選択が終わりユーザーがショッピングカートの内容をチェックアウト（選択内容の決定）を行うと、カタログサーバーは購買アプリケーションにPunchOutOrderMessageをPOSTします。
+
+PunchOutOrderMessageにはショッピングカートの内容を設定します。
+
 
 ## Mongoデータベースの準備
 
@@ -51,7 +62,7 @@ catalog_items
 shopping_carts
 > 
 ```
-テストデータの登録
+テスト用のカタログデータの登録
 ```
 db.catalog_items.insertOne({
     "productId": 1,

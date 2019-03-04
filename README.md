@@ -1,5 +1,10 @@
 # Amazon Punchout
 
+## About cXML Punchout
+
+[Punchout Order Sequence](docs/PunchoutOrderSequence)
+
+[cXML Users Guide](docs/cXML/cXMLUsersGuide.pdf)
 
 ## Punchout Catalog Server
 

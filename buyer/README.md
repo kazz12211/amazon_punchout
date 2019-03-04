@@ -1,4 +1,14 @@
-# 購買アプリケーションサンプル
+# Buyer - 購買アプリケーションサンプル
+
+## 概要
+
+Buyerはパンチアウトを利用して、購入する物品を選択します。
+
+カタログサーバーに対してPunchOutSetupRequestをPOSTし、返信されたPunchOutSetupResponseに設定されているURLにアクセスします。このサンプルアプリケーションではiframeにカタログサーバーの画面を表示しています。
+
+ショッピングカートに追加された物品はチェックアウトするとカタログサーバーはBuyerにショッピングカートの中身を設定したPunchOutOrderMessageをPOSTします。
+
+PunchOutOrderMessageを受け取ったBuyerは何らかの方法でPOSTされたcXML文書を読み込み、ショッピングカートの中身を購入品目リストに転記し、カタログサーバーの画面を閉じます。このサンプルアプリケーションでは、1秒おきにデータベースをチェックして新しいPunchOutOrderMessageが保存されていた場合に、それを読み込んで購入品目リストに転記し、データベースに使用済フラグを更新し、iframeを非表示にしてカタログサーバーの画面を消しています。
 
 ## 環境設定
 
@@ -470,7 +480,7 @@ http://localhost:3000
 }
 ```
 
-PunchOutOrderMessageを保存したもの
+PunchOutOrderMessageをデータベースに保存したもの
 
 ```
 {
@@ -525,3 +535,5 @@ PunchOutOrderMessageを保存したもの
   "_id": "5c7c83d9b4137c28d82d5ae3"
 }
 ```
+
+PunchOutOrderMessageを受信した際にこの内容をデータベースに保存します。そのときにupdatedをtrueに設定しています。この値がチェックアウトされた直後はtrueで、Buyerがショッピングカートの内容を転記して自画面に表示する際にfalseに更新します。
