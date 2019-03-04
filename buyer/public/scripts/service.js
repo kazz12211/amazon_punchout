@@ -58,6 +58,14 @@ function PunchoutService($http, $filter) {
             }
         );
     };
+
+    this.checkupdated = (buyerCookie) => {
+        return $http.get('/checkupdated/' + buyerCookie);
+    };
+
+    this.consume = (buyerCookie) => {
+        return $http.get('/getcart/' + buyerCookie);
+    };
 }
 
 PunchoutService.$inject = [

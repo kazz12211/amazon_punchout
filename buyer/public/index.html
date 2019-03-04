@@ -55,21 +55,27 @@
             <table>
                 <thead>
                     <tr>
-                        <th width="50%" class="text-col">品名</th>
+                        <th width="5%" class="text-col">品番</th>
+                        <th width="40%" class="text-col">品名</th>
                         <th width="20%" class="number-col">単価</th>
                         <th width="10%" class="number-col">数量</th>
+                        <th width="5%" class="text-col">単位</th>
                         <th width="20%" class="number-col">金額</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat='item in order.lineitems'>
-                        <td class="text-col">{{item.name}}</td>
-                        <td class="number-col">{{item.price}}</td>
+                        <td class="text-col">{{item.supplierPartID}}</td>
+                        <td class="text-col">{{item.description}}</td>
+                        <td class="number-col">{{item.unitPrice}}</td>
                         <td class="number-col">{{item.quantity}}</td>
-                        <td class="number-col">{{item.price * item.quantity}}</td>
+                        <td class="text-col">{{item.unitOfMeasure}}</td>
+                        <td class="number-col">{{item.unitPrice * item.quantity}}</td>
 
                     </tr>
                     <tr>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td colspan="2" class="text-col"><span class="table-label">合計金額（税込み）</span></td>
                         <td class="number-col">{{totalAmount()}}</td>

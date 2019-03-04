@@ -1,4 +1,4 @@
-app.controller('controller', ($scope, $http, $window, $document, $q, punchoutService, $sce) => {
+app.controller('controller', ($scope, $http, $window, $document, $q, punchoutService, $sce, $interval) => {
 
     $scope.order = {
         requester: '椿工藝舎',
@@ -22,11 +22,15 @@ app.controller('controller', ($scope, $http, $window, $document, $q, punchoutSer
     $scope.punchoutInProgress = false;
     $scope.punchoutURL = '';
     $scope.isModal = false;
+    $scope.buyerCookie = '34234234ADFSDF234234';
+    $scope.checkouted = false;
+
+    let task = null;
 
     $scope.totalAmount = () => {
         let amount = 0;
         $scope.order.lineitems.forEach( item => {
-            amount += (item.price * item.quantity);
+            amount += (item.unitPrice * item.quantity);
         } );
         return Math.round(amount * 1.08);
     };
@@ -34,10 +38,22 @@ app.controller('controller', ($scope, $http, $window, $document, $q, punchoutSer
     $scope.closePunchout = () => {
         $scope.punchoutURL = '';
         $scope.punchoutInProgress = false;
+        $interval.cancel(task);
     };
 
+    $scope.$watch('checkouted', (newValue, oldValue) => {
+        if(newValue === true) {
+            $q.all([punchoutService.consume($scope.buyerCookie)]).then( (response) => {
+                $scope.order.lineitems = response[0].data.itemIns;
+                console.log(response[0].data.itemIns);
+                $scope.punchoutInProgress = false;
+            });
+        }
+    });
+
     $scope.openPunchout = () => {
-        $q.all([punchoutService.punchoutCreate('34234234ADFSDF234234')]).then( (response) => {
+
+        $q.all([punchoutService.punchoutCreate($scope.buyerCookie)]).then( (response) => {
             // Parse response cXML document
             const parser = new DOMParser();
             const doc = parser.parseFromString(response[0].data, 'text/xml');
@@ -67,6 +83,15 @@ app.controller('controller', ($scope, $http, $window, $document, $q, punchoutSer
                 $scope.punchoutURL = $sce.trustAsResourceUrl(url);
                 // Show iframe
                 $scope.punchoutInProgress = true;
+
+       
+                task = $interval( () => {
+                    $q.all([punchoutService.checkupdated($scope.buyerCookie)]).then( (response) => {
+                        const res = response[0].data;
+                        $scope.checkouted = res.result;
+                    });
+                }, 1000);
+        
             }
         });
     };

@@ -4,6 +4,73 @@
 
 Start catalog_server before start this app.
 
+## Mongoデータベースの準備
+
+mongo cliの実行
+
+```
+> mongo
+MongoDB shell version v4.0.6
+connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("37e88c03-7f6e-4ba4-aa84-e0d29c6b8227") }
+MongoDB server version: 4.0.6
+Server has startup warnings: 
+2019-03-03T06:38:45.827+0000 I STORAGE  [initandlisten] 
+2019-03-03T06:38:45.827+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-03T06:38:45.827+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-03T06:38:46.796+0000 I CONTROL  [initandlisten] 
+2019-03-03T06:38:46.796+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-03T06:38:46.796+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-03T06:38:46.796+0000 I CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> 
+```
+
+buyerデータベースを選択（データベースが存在しない場合は作られる）
+```
+> use buyer
+switched to db buyer
+```
+コレクションを作成
+```
+> db.createCollection('punchout_contents')
+{ "ok" : 1 }
+```
+```
+> show collections
+punchout_contents
+> 
+```
+
+## 環境設定
+
+Edit routes/config.js to point mongodb database.
+```
+const config = {
+    db: {
+        url: 'mongodb://172.17.0.2:27017/buyer',
+        options: {
+            useNewUrlParser: true,
+            reconnectTries: 60,
+            reconnectInterval: 1000
+        }
+    }
+};
+
+module.exports = config;
+```
+
 ## 実行
 
 For development
@@ -15,9 +82,15 @@ For deployement
 npm run start
 ```
 
+## ブラウズ
+
+```
+http://localhost:3000
+```
+
 ## PunchOutOrderMessage
 
-カタログサーバーから受信したもの。(xml-body-parserでJSONに変換されたもの)
+カタログサーバーから受信したもの。(xml-body-parserミドルウエアでJSONに変換されたもの)
 
 ```
 {
@@ -394,5 +467,61 @@ npm run start
       ]
     }
   ]
+}
+```
+
+PunchOutOrderMessageを保存したもの
+
+```
+{
+  "payloadID": "456778-198@premier.workchairs.com",
+  "timestamp": "2019-03-04T10:48:09+09:00",
+  "from": "942888711",
+  "to": "admin@acme.com",
+  "sender": "942888711",
+  "userAgent": "CatalogServer",
+  "buyerCookie": "34234234ADFSDF234234",
+  "currency": "JPY",
+  "total": 907200,
+  "itemIns": [
+    {
+      "quantity": 1,
+      "supplierPartID": "1",
+      "currency": "JPY",
+      "unitPrice": 280000,
+      "description": "Duncanのジャズピックアップ搭載のホローボディー。現代的なサウンドを奏でる使いやすいギターです。",
+      "unitOfMeasure": "EA",
+      "classificationDomain": "SPSC",
+      "classification": "12345",
+      "manufacturerPartID": "man-part-id",
+      "manufacturerName": "椿工藝舎"
+    },
+    {
+      "quantity": 1,
+      "supplierPartID": "2",
+      "currency": "JPY",
+      "unitPrice": 280000,
+      "description": "ハイパワーピックアップ搭載で軽量なソリッドモデルです。",
+      "unitOfMeasure": "EA",
+      "classificationDomain": "SPSC",
+      "classification": "12345",
+      "manufacturerPartID": "man-part-id",
+      "manufacturerName": "椿工藝舎"
+    },
+    {
+      "quantity": 1,
+      "supplierPartID": "3",
+      "currency": "JPY",
+      "unitPrice": 280000,
+      "description": "ハイパワーピックアップ搭載のソリッドモデルです。染色に藍を使ったジャパンブルーのボディーは他にはない渋い仕上がりです。",
+      "unitOfMeasure": "EA",
+      "classificationDomain": "SPSC",
+      "classification": "12345",
+      "manufacturerPartID": "man-part-id",
+      "manufacturerName": "椿工藝舎"
+    }
+  ],
+  "updated": true,
+  "_id": "5c7c83d9b4137c28d82d5ae3"
 }
 ```

@@ -128,6 +128,12 @@ For deployement
 npm run start
 ```
 
+## ブラウズ
+
+```
+http://localhost:5000
+```
+
 ## 生成されるPunchOutOrderMessage
 
 ![](img/cart.png)
