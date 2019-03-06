@@ -84,7 +84,7 @@ app.controller('controller', ($scope, $http, $window, $document, $q, punchoutSer
                 // Show iframe
                 $scope.punchoutInProgress = true;
 
-       
+                // Periodically check updated cart content
                 task = $interval( () => {
                     $q.all([punchoutService.checkupdated($scope.buyerCookie)]).then( (response) => {
                         const res = response[0].data;

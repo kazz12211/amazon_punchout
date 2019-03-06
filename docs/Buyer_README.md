@@ -128,6 +128,86 @@ npm run start
 http://localhost:3000
 ```
 
+## PunchOutSetupRequest送信
+
+カタログサーバーにPunchOutSetupRequestを送信するのが`PunchoutService.punchoutCreate`
+
+```
+function PunchoutService($http, $filter) {
+    // Create shopping cart on punchout site
+    this.punchoutCreate = (buyerCookie) => {
+        const timestamp = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ssZ');
+        // Make PunchoutSetupRequest cXML
+        const request = PunchoutRequestTemplate.replace('{timestamp}', timestamp).replace('{buyerCookie}', buyerCookie);
+        // Post PunchoutSetupRequest to punchout site
+        return $http(
+            {
+                method: 'POST',
+                url: 'http://localhost:5000/punchout/setup',
+                headers: {
+                    'Content-Type': 'text/xml',
+                    'Accept' : 'text/xml'
+                },
+                data: request
+            }
+        );
+    };
+
+    ....
+    ....
+}
+```
+
+## PunchOutSetupResponse受信
+
+```
+    $scope.openPunchout = () => {
+
+        $q.all([punchoutService.punchoutCreate($scope.buyerCookie)]).then( (response) => {
+            // Parse response cXML document
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(response[0].data, 'text/xml');
+            console.log('PunchoutSetupResponse:');
+            console.log(doc);
+            // Get cXML content
+            const cXML = doc.getElementsByTagName('cXML')[0];
+            const res = cXML.getElementsByTagName('Response')[0];
+            // Check Response.Status
+            const statusAttrs = res.getElementsByTagName('Status')[0].attributes;
+            let status = '';
+            for(let i = 0; i < statusAttrs.length; i++) {
+                if(statusAttrs[i].name === 'code') {
+                    status = statusAttrs[i].value;
+                }
+            }
+            if(status !== '200') {
+                console.log('Error status ' + status + ' returned from catalog server');
+                $scope.showModal('PunchoutSetup Transaction failed', 'Server returned status: ' + status);
+            } else {
+                // Get PunchOutSetupResponse
+                const punchoutResponse = res.getElementsByTagName('PunchOutSetupResponse')[0];
+                // Get catalog page URL
+                const startPage = punchoutResponse.getElementsByTagName('StartPage')[0];
+                const url = startPage.getElementsByTagName('URL')[0].textContent;
+                // Make the resource URL trusted
+                $scope.punchoutURL = $sce.trustAsResourceUrl(url);
+                // Show iframe
+                $scope.punchoutInProgress = true;
+
+                // Periodically check updated cart content
+                task = $interval( () => {
+                    $q.all([punchoutService.checkupdated($scope.buyerCookie)]).then( (response) => {
+                        const res = response[0].data;
+                        $scope.checkouted = res.result;
+                    });
+                }, 1000);
+        
+            }
+        });
+    };
+```
+
+
 ## PunchOutOrderMessage
 
 カタログサーバーから受信したもの。(xml-body-parserミドルウエアでJSONに変換されたもの)
