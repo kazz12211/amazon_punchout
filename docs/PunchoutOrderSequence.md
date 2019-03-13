@@ -33,11 +33,3 @@ Typical Amazon Punchout Order is made by following cXML transactions.
 
 ![](../out/docs/uml/typical_punchout/typical_punchout.png)
 
-## Tradeshift Buy LE Punchout
-
-Tradeshift Buy LE will use 
-- Tradeshift to process order instead of sending OrderRequest to Amazon.
-- iPaaS to receive order confirmation and shipment confirmation from Amazon.
-
-
-![](../out/docs/uml/buyle_punchout/buyle_punchout.png)

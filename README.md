@@ -4,7 +4,7 @@
 
 パンチアウトトランザクションと交換するXML文書を理解する。
 
-[Punchout Order Sequence](docs/PunchoutOrderSequence)
+[Punchout Order Sequence](docs/pdf/PunchoutOrderSequence.pdf)
 
 [cXML Users Guide](docs/cXML/cXMLUsersGuide.pdf)
 

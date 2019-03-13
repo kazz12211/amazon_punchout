@@ -1,0 +1,31 @@
+@startuml
+title: Use Amazon as an online catalog
+actor User
+participant BuyApp
+participant OrderSystem
+participant Amazon
+participant iPaaS
+
+User -> BuyApp: Select Amazon Punchout on UI
+BuyApp -> Amazon: Send cXML:PunchoutSetupRequest
+Amazon -> BuyApp: Send back cXML:PunchoutSetupResponse with OK Status
+BuyApp -> User: Present Amazon catalog in iframe or new window
+note right
+If Status of the PunchoutSetupResponse is not 200 (OK),
+presents error message to User and stop process followed by.
+end note
+User -> Amazon: Browse items from Amazon catalog and put them into shopping cart
+User -> Amazon: Checkout
+Amazon -> BuyApp: Send cXML:PunchoutOrderMessage which contains cart content
+BuyApp -> BuyApp: Put Amazon cart content into InvoiceRequest's line items
+User -> BuyApp: Submit InvoiceRequest for approval
+BuyApp->BuyApp: Internal approval workflow process
+BuyApp -> OrderSystem: Send PurchaseOrder
+OrderSystem -> Amazon: Send cXML:OrderRequest
+... after Amazon processed the order ...
+Amazon -> iPaaS: Send cXML:OrderConfirmation and store the confirmaiton
+iPaaS -> BuyApp: Receive order confirmation
+... after Amazon shipped the order ...
+Amazon -> iPaaS: Send cXML:ShipmentConfirmation and store the confirmation
+iPaaS -> BuyApp: Receive shipment confirmation
+@enduml
